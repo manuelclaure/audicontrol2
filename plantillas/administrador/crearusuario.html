@@ -1,0 +1,75 @@
+{% extends 'template.html' %}
+{% block extracss %}
+    <!-- Datatables -->
+    <link href="/static/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/scroller.bootstrap.min.css" rel="stylesheet">
+    {% block extrahead_list %}
+
+    {% endblock %}
+{% endblock %}
+{% block cuerpo %}  
+
+<div class="x_title">
+    <h2><i class="fa fa-plus"></i> {{ title }}</h2>
+    <div class="clearfix"></div>
+</div>
+
+{% block topbuttons %}
+
+{% endblock %}
+
+<form method="post" >
+    {% csrf_token %}
+    <input type="hidden" name="action" value="{{ action }}">
+    {% comment %}{% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            Ha ocurrido un error al querer guardar el registro
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}{% endcomment %}
+    {% for field in form.visible_fields %}
+        <div class="form-group">
+            <label for="email">{{ field.label }}:</label>
+            {{ field }}
+        </div>
+    {% endfor %}
+    <input type="hidden" id="auditor_id" name="auditor_id" value="{{ auditor_id}}">
+
+    <div class="ln_solid"></div>
+    <div class=" ">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar registro</button>
+        <a href="{{ list_url }}" class="btn btn-success"><i class="fa fa-times"></i> Cancelar</a>
+    </div>
+</form>
+
+
+{% endblock %}
+{% block extrajs %}
+    <!-- Datatables -->
+    <script src="/static/js/jquery.dataTables.min.js"></script>
+    <script src="/static/js/dataTables.bootstrap.min.js"></script>
+    <script src="/static/js/dataTables.buttons.min.js"></script>
+    <script src="/static/js/buttons.bootstrap.min.js"></script>
+    <script src="/static/js/buttons.flash.min.js"></script>
+    <script src="/static/js/buttons.html5.min.js"></script>
+    <script src="/static/js/buttons.print.min.js"></script>
+    <script src="/static/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/static/js/dataTables.keyTable.min.js"></script>
+    <script src="/static/js/dataTables.responsive.min.js"></script>
+    <script src="/static/js/responsive.bootstrap.js"></script>
+    <script src="/static/js/dataTables.scroller.min.js"></script>
+    <script src="/static/js/jszip.min.js"></script>
+    <script src="/static/js/pdfmake.min.js"></script>
+    <script src="/static/js/vfs_fonts.js"></script>   
+{% endblock %}
